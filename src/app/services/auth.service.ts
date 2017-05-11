@@ -31,8 +31,7 @@ export class AuthService extends RequestService {
     private endpoint: string = '/users';
 
     login(credentials: Credentials) {
-        return this.http.post(this.endpoint + '/login', credentials, this.getRequestOptions())
-            .map(data => data.json());
+        return this.post(this.endpoint + '/login', credentials).map(data => data.json());
     }
 
     logout() : boolean {
@@ -41,6 +40,6 @@ export class AuthService extends RequestService {
     }
 
     save(user: UserInterface) {
-        return this.http.put(this.endpoint, {user: user}, this.getRequestOptions()).map(data => data.json());
+        return this.put(this.endpoint, {user: user}).map(data => data.json());
     }
 }

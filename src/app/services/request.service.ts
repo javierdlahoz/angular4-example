@@ -1,6 +1,6 @@
 import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 import {UserInterface} from './auth.service';
 
@@ -43,6 +43,31 @@ export class RequestService {
         }
     }
 
+    protected get(url: string, params?: Object) {
+        let requestOptions = this.getRequestOptions();
+        if(params){
+            requestOptions.search = this.getParamsFromObject(params);
+        }
+        return this.http.get(url, requestOptions);
+    }
+
+    protected post(url: string, params?: Object) {
+        return this.http.post(url, params, this.getRequestOptions());
+    }
+    
+    protected put(url: string, params?: Object) {
+        let p = params || {};
+        return this.http.put(url, p, this.getRequestOptions());
+    }
+
+    protected delete(url: string, params?: Object) {
+        let requestOptions = this.getRequestOptions();
+        if(params){
+            requestOptions.search = this.getParamsFromObject(params);
+        }
+        return this.http.delete(url, requestOptions);
+    }
+
     private getUserToken() : string {
         if(this.isAuthenticated()) {
             return 'Token ' + this.getCurrentUser().token;
@@ -61,5 +86,13 @@ export class RequestService {
             authHeaders += ', ' + userToken;
         }
         return authHeaders;
+    }
+
+    private getParamsFromObject(params: Object) {
+        let args = new URLSearchParams();
+        for(let key in params) {
+            args.set(key, params[key]);
+        }
+        return args;
     }
 }
