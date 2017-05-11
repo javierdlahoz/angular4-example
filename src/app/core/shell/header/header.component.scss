@@ -1,0 +1,15 @@
+@import "src/theme/theme-variables";
+
+.navbar {
+  margin-bottom: $spacer;
+}
+
+.nav-link.dropdown-toggle {
+  cursor: pointer;
+}
+
+.user-avatar {
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+}

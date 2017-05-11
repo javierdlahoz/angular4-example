@@ -1,0 +1,10 @@
+{
+  "generator-ngx-app": {
+    "version": "1.2.1",
+    "props": {
+      "appName": "cms",
+      "auth": true,
+      "projectName": "cms"
+    }
+  }
+}
