@@ -35,20 +35,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isLoading = true;
-    this.authService.login(this.loginForm.value)
-      .finally(() => {
-        this.isLoading = false;
-      })
-      .subscribe(
-          user => { 
-            this.user = user.user;
-            this.authService.setCurrentUser(user.user);
-            this.router.navigate(['/']); 
-          }, 
-          error => { 
-            this.error = error.json().message; 
-          }
-        );
+    this.authService.login(this.loginForm.value).then((data) => {
+      this.user = data.user;
+      this.router.navigate(['/']); 
+    });
   }
 
   private createForm() {

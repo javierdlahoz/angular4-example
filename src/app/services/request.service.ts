@@ -49,11 +49,11 @@ export class RequestService {
         if(params){
             requestOptions.search = this.getParamsFromObject(params);
         }
-        return this.http.get(url, requestOptions);
+        return this.resolveRequest(this.http.get(url, requestOptions));
     }
 
     protected post(url: string, params?: Object) {
-        return this.http.post(url, params, this.getRequestOptions());
+        return this.resolveRequest(this.http.post(url, params, this.getRequestOptions()));
     }
     
     protected put(url: string, params?: Object) {
@@ -67,7 +67,7 @@ export class RequestService {
         if(params){
             requestOptions.search = this.getParamsFromObject(params);
         }
-        return this.http.delete(url, requestOptions);
+        return this.resolveRequest(this.http.delete(url, requestOptions));
     }
 
     private getUserToken() : string {

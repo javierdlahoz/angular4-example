@@ -30,7 +30,9 @@ export class AuthService extends RequestService {
     private endpoint: string = '/users';
 
     login(credentials: Credentials) {
-        return this.post(this.endpoint + '/login', credentials).map(data => data.json());
+        let response = this.post(this.endpoint + '/login', credentials);
+        response.then(r => {this.setCurrentUser(r.user); });
+        return response;
     }
 
     logout() : boolean {
