@@ -27,9 +27,7 @@ export class ProfileComponent implements OnInit {
 
   save() {
     this.isLoading = true;
-    this.authService.save(this.userForm.value)
-      .finally(() => { this.isLoading = false; })
-      .subscribe(data => this.authService.setCurrentUser(data.user));
+    this.authService.save(this.userForm.value).then(data => {this.isLoading = false;});
   }
 
   private createForm() {

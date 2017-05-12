@@ -1,6 +1,5 @@
-import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {Http} from '@angular/http';
 
 import {RequestService} from './request.service';
 
@@ -40,6 +39,8 @@ export class AuthService extends RequestService {
     }
 
     save(user: UserInterface) {
-        return this.put(this.endpoint, {user: user}).map(data => data.json());
+        let response = this.put(this.endpoint, {user: user});
+        response.then(r => {this.setCurrentUser(r.user); });
+        return response;
     }
 }

@@ -1,6 +1,7 @@
 import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 
 import {UserInterface} from './auth.service';
 
@@ -56,8 +57,9 @@ export class RequestService {
     }
     
     protected put(url: string, params?: Object) {
-        let p = params || {};
-        return this.http.put(url, p, this.getRequestOptions());
+        let response: Promise<any>, 
+            p = params || {};
+        return this.resolveRequest(this.http.put(url, p, this.getRequestOptions()));
     }
 
     protected delete(url: string, params?: Object) {
@@ -94,5 +96,18 @@ export class RequestService {
             args.set(key, params[key]);
         }
         return args;
+    }
+
+    private resolveRequest(request: Observable<any>) {
+        let response: Promise<any>;
+        response = new Promise((resolve, reject) => {
+            request.subscribe(res => {
+                    resolve(res.json());
+                },
+                error => {
+                    reject(error.json());
+                });
+        });
+        return response;
     }
 }
