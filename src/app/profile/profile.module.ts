@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
+import { UploaderComponent } from '../components/uploader/uploader.component';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { ProfileComponent } from './profile.component';
     ProfileRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [ProfileComponent]
+  declarations: [ProfileComponent, UploaderComponent],
+  exports: [UploaderComponent]
 })
 export class ProfileModule { }

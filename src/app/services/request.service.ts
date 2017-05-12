@@ -44,6 +44,15 @@ export class RequestService {
         }
     }
 
+    getAuthTokens() : string {
+        let authHeaders: string = this.getBearerToken();
+        let userToken = this.getUserToken();
+        if(userToken){
+            authHeaders += ', ' + userToken;
+        }
+        return authHeaders;
+    }
+
     protected get(url: string, params?: Object) {
         let requestOptions = this.getRequestOptions();
         if(params){
@@ -79,15 +88,6 @@ export class RequestService {
 
     private getBearerToken() : string {
         return 'Bearer ' + environment.tenantBearer;
-    }
-
-    private getAuthTokens() : string {
-        let authHeaders: string = this.getBearerToken();
-        let userToken = this.getUserToken();
-        if(userToken){
-            authHeaders += ', ' + userToken;
-        }
-        return authHeaders;
     }
 
     private getParamsFromObject(params: Object) {

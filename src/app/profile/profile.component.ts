@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
 
 import { AuthService, UserInterface } from '../services/auth.service';
+import { MediaInterface } from '../services/media.service';
 import { HeaderComponent } from '../core/shell/header/header.component';
+import { UploaderComponent } from '../components/uploader/uploader.component';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +18,8 @@ export class ProfileComponent implements OnInit {
   user: UserInterface;
   isLoading: boolean = false;
   error: string;
+  media: MediaInterface;
+  mediaObservable: Observable<any>;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService) {
@@ -28,6 +33,13 @@ export class ProfileComponent implements OnInit {
   save() {
     this.isLoading = true;
     this.authService.save(this.userForm.value).then(data => {this.isLoading = false;});
+  }
+
+  setAvatar(media: MediaInterface) {
+    if(media.url){
+      this.user.avatar = media.url;
+      this.authService.save(this.user);
+    }
   }
 
   private createForm() {

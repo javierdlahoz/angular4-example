@@ -1,10 +1,15 @@
-<div class="container-fluid">
+<div class="container">
   <div class="jumbotron text-center">
     <h1>
       <span translate>Welcome to your profile</span>
     </h1>
     <form [formGroup]="userForm" (ngSubmit)="save()" novalidate>
       <div class="form-group">
+        <label class="d-block">
+          <img src="{{user.avatar}}" height="96">
+          <app-uploader (mediaChange)="setAvatar($event)"></app-uploader>
+          <p *ngIf="media">aqui la url: {{media.url}}</p>
+        </label>
         <label class="d-block">
           <input type="text" class="form-control" formControlName="first_name" [placeholder]="'First name'" required/>
         </label>
