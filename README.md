@@ -1,7 +1,7 @@
-# cms
+# wonclient-tenat-1
 
 This project was generated with [generator-ngx-app](https://github.com/angular-starter-kit/generator-ngx-app/)
-version 1.2.1
+version 1.2.2
 
 # Getting started
 

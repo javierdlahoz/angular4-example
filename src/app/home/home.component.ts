@@ -1,24 +1,27 @@
-import 'rxjs/add/operator/finally';
-
 import { Component, OnInit } from '@angular/core';
-
-import { QuoteService } from './quote.service';
+import { PostService, PostInterface } from '../services/post.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  providers: [PostService]
 })
 export class HomeComponent implements OnInit {
+  isLoading: boolean = true;
+  page: PostInterface;
+  constructor(private postService: PostService) {
+    this.getPageContent();
+  }
 
-  quote: string;
-  isLoading: boolean;
+  ngOnInit() {}
 
-  constructor(private quoteService: QuoteService) {}
-
-  ngOnInit() {
+  private getPageContent() {
     this.isLoading = true;
-    this.quoteService.getRandomQuote({ category: 'dev' });
+    this.postService.getPost('page', 'home').then((data:any) => { 
+      this.isLoading = false; 
+      this.page = data.post; 
+    });
   }
 
 }

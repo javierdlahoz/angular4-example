@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.authService.login(this.loginForm.value).then((data) => {
       this.user = data.user;
+      console.log('should go to home');
       this.router.navigate(['/']); 
     });
   }

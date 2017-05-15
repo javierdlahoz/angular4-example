@@ -1,10 +1,10 @@
 {
   "generator-ngx-app": {
-    "version": "1.2.1",
+    "version": "1.2.2",
     "props": {
-      "appName": "cms",
+      "appName": "wonclient-tenat-1",
       "auth": true,
-      "projectName": "cms"
+      "projectName": "wonclient-tenat-1"
     }
   }
 }
